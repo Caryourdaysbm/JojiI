@@ -17,28 +17,34 @@ function App() {
   const showCart = useSelector((state) => state.cart.showCart);
 
   // getting menu data from an external API
-  const getData = async () => {
-    try {
-      const response = await fetch("https://freerandomapi.cyclic.app/api/v1/desserts?limit=100");
-  
-      if (!response.ok) {
-        throw new Error(`HTTP error! Status: ${response.status}`);
-      }
-  
-      const data = await response.json();
-  
-      // Check if data is in the expected format
-      if (data && data.data) {
-        localStorage.setItem("menu", JSON.stringify(data.data));
-      } else {
-        console.error("Unexpected data structure:", data);
-        localStorage.setItem("menu", JSON.stringify([])); // Store an empty array as fallback
-      }
-    } catch (error) {
-      console.error("Failed to fetch data:", error);
-      localStorage.setItem("menu", JSON.stringify([])); // Store an empty array as fallback
+ // Fetching menu data from an external API
+const getData = async () => {
+  try {
+    const response = await fetch("https://fakestoreapi.com/products/?limit=15");
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`);
     }
-  };
+
+    const data = await response.json();
+
+    // Transform the fetched data to match the expected structure
+    const transformedData = data.map((item) => ({
+      _id: item.id.toString(),
+      name: item.title,
+      photoUrl: item.image,
+      category: item.category,
+      price: item.price, // Optional if you want to use a different pricing strategy
+    }));
+
+    // Store the transformed data in localStorage
+    localStorage.setItem("menu", JSON.stringify(transformedData));
+  } catch (error) {
+    console.error("Failed to fetch data:", error);
+    localStorage.setItem("menu", JSON.stringify([])); // Store an empty array as fallback
+  }
+};
+
   
 
   useEffect(() => {

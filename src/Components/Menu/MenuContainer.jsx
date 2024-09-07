@@ -11,9 +11,9 @@ function MenuContainer() {
   const menuCard = loadCurrentPageData.map((menu, index) => (
     <MenuCards
       key={menu._id}
-      id={menu._id}
+      id={menu.id}
       title={menu.name}
-      src={menu.photoUrl}
+      src={menu.image}
       category={menu.category}
       price={index === 0 ? 2 : index}
     />

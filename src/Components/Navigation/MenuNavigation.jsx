@@ -11,7 +11,7 @@ function MenuNavigation() {
           className={({ isActive }) =>
             isActive ? "menu-link__active" : "menu-link__not-active"
           }
-          to="menu/Ice_Cream"
+          to="menu/jewelery"
         >
           <span>
             <GiPopcorn />
@@ -22,7 +22,7 @@ function MenuNavigation() {
           className={({ isActive }) =>
             isActive ? "menu-link__active" : "menu-link__not-active"
           }
-          to="menu/Donut"
+          to="menu/electronics"
         >
           <span>
             <BiDrink />
@@ -33,7 +33,7 @@ function MenuNavigation() {
           className={({ isActive }) =>
             isActive ? "menu-link__active" : "menu-link__not-active"
           }
-          to="menu/Cookie"
+          to="menu/men's clothing"
         >
           <span>
             <BiCookie />
