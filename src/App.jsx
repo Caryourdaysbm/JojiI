@@ -18,14 +18,28 @@ function App() {
 
   // getting menu data from an external API
   const getData = async () => {
-    const response = await fetch(
-      "https://freerandomapi.cyclic.app/api/v1/desserts?limit=100"
-    );
-    const data = await response.json();
-
-    // store data from API in local storage
-    localStorage.setItem("menu", JSON.stringify(data.data));
+    try {
+      const response = await fetch("https://freerandomapi.cyclic.app/api/v1/desserts?limit=100");
+  
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+  
+      const data = await response.json();
+  
+      // Check if data is in the expected format
+      if (data && data.data) {
+        localStorage.setItem("menu", JSON.stringify(data.data));
+      } else {
+        console.error("Unexpected data structure:", data);
+        localStorage.setItem("menu", JSON.stringify([])); // Store an empty array as fallback
+      }
+    } catch (error) {
+      console.error("Failed to fetch data:", error);
+      localStorage.setItem("menu", JSON.stringify([])); // Store an empty array as fallback
+    }
   };
+  
 
   useEffect(() => {
     getData();
